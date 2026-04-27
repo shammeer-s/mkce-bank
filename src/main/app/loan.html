@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AuraBank — Apply for a personal loan with competitive rates">
+  <title>AuraBank — Loan Application</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <aside class="app-sidebar" id="app-sidebar"></aside>
+  <div class="app-main">
+    <header class="app-header">
+      <h1 class="page-title">Loan Application</h1>
+      <div class="header-actions">
+        <span style="font-size:13px;color:var(--text-muted);"><i class="bi bi-shield-check me-1"></i>Instant Pre-Approval</span>
+      </div>
+    </header>
+    <div class="app-content fade-in-up">
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div class="card-section">
+            <div class="card-header-custom">
+              <h3><i class="bi bi-cash-stack me-2"></i>Apply for a Loan</h3>
+            </div>
+            <div class="p-4">
+              <form id="form-loan" data-testid="form-loan">
+                <div class="loan-slider-section">
+                  <label class="form-label-custom">Loan Amount</label>
+                  <div class="loan-amount-display" id="text-loan-amount" data-testid="text-loan-amount">$50,000</div>
+                  <input type="range" class="range-custom" id="range-loan-amount" data-testid="range-loan-amount" min="10000" max="1000000" step="5000" value="50000">
+                  <div class="range-labels">
+                    <span>$10,000</span>
+                    <span>$1,000,000</span>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label-custom" for="input-repayment-date">Repayment Start Date</label>
+                  <input type="date" class="form-control form-control-custom" id="input-repayment-date" data-testid="input-repayment-date" required>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label-custom">Upload ID Document</label>
+                  <div class="file-upload-zone" id="file-drop-zone" data-testid="file-drop-zone">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                    <p style="font-weight:600;margin-bottom:4px;">Drag & drop your file here</p>
+                    <p style="font-size:13px;color:var(--text-muted);">or click to browse — PDF, JPG, PNG (max 5MB)</p>
+                    <span id="text-file-name" data-testid="text-file-name" style="font-size:13px;font-weight:600;color:var(--success);display:none;"></span>
+                    <input type="file" class="d-none" id="input-id-upload" data-testid="input-id-upload" accept=".pdf,.jpg,.jpeg,.png">
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-solid w-100" id="btn-submit-loan" data-testid="btn-submit-loan" style="padding:14px;">
+                  <i class="bi bi-check-circle me-2"></i>Submit Application
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card-section mb-4">
+            <div class="card-header-custom">
+              <h3><i class="bi bi-calculator me-2"></i>Loan Summary</h3>
+            </div>
+            <div class="p-4">
+              <div class="loan-info-grid">
+                <div class="loan-info-item">
+                  <div class="label">Monthly EMI</div>
+                  <div class="value" id="text-emi" data-testid="text-emi">$965</div>
+                </div>
+                <div class="loan-info-item">
+                  <div class="label">Interest Rate</div>
+                  <div class="value" id="text-interest-rate" data-testid="text-interest-rate">8.5%</div>
+                </div>
+                <div class="loan-info-item">
+                  <div class="label">Tenure</div>
+                  <div class="value" id="text-tenure">60 mo</div>
+                </div>
+                <div class="loan-info-item">
+                  <div class="label">Total Payable</div>
+                  <div class="value" id="text-total-payable">$57,900</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="p-4">
+              <h6 style="font-weight:700;margin-bottom:12px;"><i class="bi bi-info-circle me-1"></i> Eligibility</h6>
+              <ul style="font-size:13px;color:var(--text-secondary);padding-left:18px;margin:0;">
+                <li class="mb-2">Minimum age: 21 years</li>
+                <li class="mb-2">Minimum income: $30,000/year</li>
+                <li class="mb-2">Valid government-issued ID</li>
+                <li class="mb-2">Approval within 24 hours</li>
+                <li>No prepayment penalties</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    const session = requireAuth();
+    if (session) init();
+
+    function init() {
+      renderSidebar('loans');
+      setupSlider();
+      setupFileUpload();
+      setupDatePicker();
+      setupForm();
+    }
+
+    function setupSlider() {
+      const slider = document.getElementById('range-loan-amount');
+      const display = document.getElementById('text-loan-amount');
+
+      function update() {
+        const val = parseInt(slider.value);
+        display.textContent = formatCurrency(val);
+        const pct = ((val - 10000) / (1000000 - 10000)) * 100;
+        slider.style.background = `linear-gradient(to right, var(--primary) ${pct}%, var(--border) ${pct}%)`;
+        calculateEMI(val);
+      }
+
+      slider.addEventListener('input', update);
+      update();
+    }
+
+    function calculateEMI(principal) {
+      const rate = getInterestRate(principal);
+      const tenure = 60;
+      const monthlyRate = rate / 12 / 100;
+      const emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, tenure)) / (Math.pow(1 + monthlyRate, tenure) - 1);
+      const totalPayable = emi * tenure;
+
+      document.getElementById('text-emi').textContent = formatCurrency(emi);
+      document.getElementById('text-interest-rate').textContent = rate.toFixed(1) + '%';
+      document.getElementById('text-tenure').textContent = tenure + ' mo';
+      document.getElementById('text-total-payable').textContent = formatCurrency(totalPayable);
+    }
+
+    function getInterestRate(amount) {
+      if (amount <= 50000) return 7.5;
+      if (amount <= 200000) return 8.5;
+      if (amount <= 500000) return 9.5;
+      return 10.5;
+    }
+
+    function setupFileUpload() {
+      const zone = document.getElementById('file-drop-zone');
+      const input = document.getElementById('input-id-upload');
+      const fileNameEl = document.getElementById('text-file-name');
+
+      zone.addEventListener('click', () => input.click());
+      zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('active'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('active'));
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('active');
+        if (e.dataTransfer.files.length) {
+          input.files = e.dataTransfer.files;
+          showFile(e.dataTransfer.files[0]);
+        }
+      });
+      input.addEventListener('change', () => { if (input.files[0]) showFile(input.files[0]); });
+
+      function showFile(file) {
+        fileNameEl.textContent = `✓ ${file.name}`;
+        fileNameEl.style.display = 'inline';
+        zone.classList.add('active');
+      }
+    }
+
+    function setupDatePicker() {
+      const dateInput = document.getElementById('input-repayment-date');
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      dateInput.min = tomorrow.toISOString().split('T')[0];
+    }
+
+    function setupForm() {
+      document.getElementById('form-loan').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const amount = document.getElementById('range-loan-amount').value;
+        const repaymentDate = document.getElementById('input-repayment-date').value;
+        const fileInput = document.getElementById('input-id-upload');
+
+        if (!repaymentDate) { showError('Please select a repayment start date'); return; }
+        if (!fileInput.files[0]) { showError('Please upload an ID document'); return; }
+
+        try {
+          await apiFetch('/api/loans/apply', {
+            method: 'POST',
+            body: JSON.stringify({
+              userId: session.user.id,
+              username: session.user.username,
+              amount,
+              repaymentDate,
+              fileName: fileInput.files[0].name
+            })
+          });
+          showSuccess('Loan application submitted successfully!');
+          this.reset();
+          document.getElementById('text-file-name').style.display = 'none';
+          document.getElementById('file-drop-zone').classList.remove('active');
+          document.getElementById('range-loan-amount').dispatchEvent(new Event('input'));
+        } catch (err) {
+          showError(err.message || 'Failed to submit loan application');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

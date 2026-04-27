@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AuraBank Dashboard — View transactions, balances and manage transfers">
+  <title>AuraBank — Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <aside class="app-sidebar" id="app-sidebar"></aside>
+  <div class="app-main">
+    <header class="app-header">
+      <h1 class="page-title" id="text-welcome">Dashboard</h1>
+      <div class="header-actions">
+        <button class="btn-solid" id="btn-open-transfer" data-testid="btn-open-transfer" data-bs-toggle="modal" data-bs-target="#modal-transfer"><i class="bi bi-send-fill"></i> New Transfer</button>
+      </div>
+    </header>
+    <div class="app-content fade-in-up">
+      <div class="row g-4 mb-4">
+        <div class="col-md-3">
+          <div class="stat-card" id="card-balance" data-testid="card-balance">
+            <div class="stat-icon blue"><i class="bi bi-wallet2"></i></div>
+            <div class="stat-label">Total Balance</div>
+            <div class="stat-value" id="text-balance">$0.00</div>
+            <div class="stat-change up"><i class="bi bi-arrow-up-short"></i> +2.5% this month</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="bi bi-arrow-down-circle"></i></div>
+            <div class="stat-label">Income</div>
+            <div class="stat-value" id="text-income">$0.00</div>
+            <div class="stat-change up"><i class="bi bi-arrow-up-short"></i> +12.3%</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon red"><i class="bi bi-arrow-up-circle"></i></div>
+            <div class="stat-label">Expenses</div>
+            <div class="stat-value" id="text-expenses">$0.00</div>
+            <div class="stat-change down"><i class="bi bi-arrow-down-short"></i> -5.1%</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-icon amber"><i class="bi bi-repeat"></i></div>
+            <div class="stat-label">Transfers</div>
+            <div class="stat-value" id="text-transfers">0</div>
+            <div class="stat-change up"><i class="bi bi-arrow-up-short"></i> Active</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="card-header-custom">
+          <h3><i class="bi bi-receipt-cutoff me-2"></i>Recent Transactions</h3>
+          <div class="filter-bar">
+            <select class="filter-select" id="select-filter-type" data-testid="select-filter-type">
+              <option value="All">All Types</option>
+              <option value="Credit">Credit</option>
+              <option value="Debit">Debit</option>
+              <option value="Transfer">Transfer</option>
+            </select>
+            <button class="btn-outline-custom" id="btn-sort-date" data-testid="btn-sort-date"><i class="bi bi-sort-down"></i> Sort by Date</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table-custom" id="table-transactions" data-testid="table-transactions">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-transactions"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-custom" id="modal-transfer" data-testid="modal-transfer" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-send me-2"></i>New Transfer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="step-indicator" id="step-indicator">
+            <div class="step-dot active" data-step="1">1</div>
+            <div class="step-line"></div>
+            <div class="step-dot" data-step="2">2</div>
+            <div class="step-line"></div>
+            <div class="step-dot" data-step="3">3</div>
+            <div class="step-line"></div>
+            <div class="step-dot" data-step="4">4</div>
+          </div>
+
+          <div id="transfer-step-1">
+            <div class="mb-3">
+              <label class="form-label-custom" for="input-recipient">Recipient Account</label>
+              <input type="text" class="form-control form-control-custom" id="input-recipient" data-testid="input-recipient" placeholder="e.g. 4820-XXXX-XXXX" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom" for="input-amount">Amount (USD)</label>
+              <input type="number" class="form-control form-control-custom" id="input-amount" data-testid="input-amount" placeholder="0.00" min="0.01" step="0.01" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom" for="input-memo">Memo (Optional)</label>
+              <input type="text" class="form-control form-control-custom" id="input-memo" data-testid="input-memo" placeholder="What's this for?">
+            </div>
+          </div>
+
+          <div id="transfer-step-2" class="d-none">
+            <h6 class="mb-3" style="font-weight:600;">Confirm Transfer Details</h6>
+            <div class="p-3 rounded" style="background: var(--bg-body);">
+              <div class="d-flex justify-content-between mb-2"><span style="color:var(--text-muted)">To:</span><strong id="confirm-recipient" data-testid="confirm-recipient"></strong></div>
+              <div class="d-flex justify-content-between mb-2"><span style="color:var(--text-muted)">Amount:</span><strong id="confirm-amount" data-testid="confirm-amount"></strong></div>
+              <div class="d-flex justify-content-between"><span style="color:var(--text-muted)">Memo:</span><span id="confirm-memo"></span></div>
+            </div>
+          </div>
+
+          <div id="transfer-step-3" class="d-none">
+            <div class="transfer-processing">
+              <div class="spinner" id="transfer-spinner" data-testid="transfer-spinner"></div>
+              <h5 id="text-transferring" data-testid="text-transferring" style="font-weight:700;">Transferring...</h5>
+              <p style="color:var(--text-muted); font-size:14px;">Please wait while we process your transfer</p>
+            </div>
+          </div>
+
+          <div id="transfer-step-4" class="d-none">
+            <div class="transfer-result" id="transfer-result" data-testid="transfer-result"></div>
+          </div>
+        </div>
+        <div class="modal-footer" id="transfer-footer">
+          <button class="btn-outline-custom d-none" id="btn-transfer-back" data-testid="btn-transfer-back">Back</button>
+          <button class="btn-solid" id="btn-transfer-next" data-testid="btn-transfer-next">Continue <i class="bi bi-arrow-right"></i></button>
+          <button class="btn-solid d-none" id="btn-transfer-confirm" data-testid="btn-transfer-confirm"><i class="bi bi-check-lg"></i> Confirm Transfer</button>
+          <button class="btn-solid d-none" id="btn-transfer-done" data-testid="btn-transfer-done">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    const session = requireAuth();
+    if (session) init();
+
+    let sortOrder = 'desc';
+    let currentFilter = 'All';
+    let allTransactions = [];
+
+    async function init() {
+      renderSidebar('dashboard');
+      document.getElementById('text-welcome').textContent = `Welcome, ${session.user.fullName}`;
+      await loadAccount();
+      await loadTransactions();
+      setupTransferModal();
+    }
+
+    async function loadAccount() {
+      try {
+        const data = await apiFetch(`/api/accounts/${session.account.id}`);
+        document.getElementById('text-balance').textContent = formatCurrency(data.account.balance);
+      } catch (e) {
+        showError('Failed to load account data');
+      }
+    }
+
+    async function loadTransactions() {
+      try {
+        const params = new URLSearchParams({ accountId: session.account.id, sort: 'date', order: sortOrder });
+        if (currentFilter !== 'All') params.set('type', currentFilter);
+        const data = await apiFetch(`/api/transactions?${params}`);
+        allTransactions = data.transactions;
+        renderTransactions(allTransactions);
+        computeStats(allTransactions);
+      } catch (e) {
+        showError('Failed to load transactions');
+      }
+    }
+
+    function renderTransactions(txns) {
+      const tbody = document.getElementById('tbody-transactions');
+      tbody.innerHTML = txns.map(t => `
+        <tr data-testid="txn-row-${t.id}">
+          <td style="font-weight:600;color:var(--text-muted);font-size:13px;">${t.id}</td>
+          <td>${formatDate(t.date)}</td>
+          <td style="font-weight:500;">${t.description}</td>
+          <td><span class="badge-type ${t.type.toLowerCase()}">${t.type}</span></td>
+          <td style="font-weight:700;${t.type === 'Credit' ? 'color:var(--success)' : t.type === 'Debit' ? 'color:var(--danger)' : 'color:var(--primary)'};">${t.type === 'Credit' ? '+' : '-'}${formatCurrency(t.amount)}</td>
+          <td><span class="badge-status">${t.status}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    function computeStats(txns) {
+      const income = txns.filter(t => t.type === 'Credit').reduce((s, t) => s + t.amount, 0);
+      const expenses = txns.filter(t => t.type === 'Debit').reduce((s, t) => s + t.amount, 0);
+      const transfers = txns.filter(t => t.type === 'Transfer').length;
+      document.getElementById('text-income').textContent = formatCurrency(income);
+      document.getElementById('text-expenses').textContent = formatCurrency(expenses);
+      document.getElementById('text-transfers').textContent = transfers;
+    }
+
+    document.getElementById('btn-sort-date').addEventListener('click', function() {
+      sortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
+      this.querySelector('i').className = sortOrder === 'desc' ? 'bi bi-sort-down' : 'bi bi-sort-up';
+      loadTransactions();
+    });
+
+    document.getElementById('select-filter-type').addEventListener('change', function() {
+      currentFilter = this.value;
+      loadTransactions();
+    });
+
+    function setupTransferModal() {
+      let step = 1;
+      const steps = [1, 2, 3, 4];
+      const modal = document.getElementById('modal-transfer');
+      const btnNext = document.getElementById('btn-transfer-next');
+      const btnBack = document.getElementById('btn-transfer-back');
+      const btnConfirm = document.getElementById('btn-transfer-confirm');
+      const btnDone = document.getElementById('btn-transfer-done');
+
+      function showStep(s) {
+        step = s;
+        steps.forEach(i => {
+          document.getElementById(`transfer-step-${i}`).classList.toggle('d-none', i !== s);
+        });
+        document.querySelectorAll('.step-dot').forEach(d => {
+          const ds = parseInt(d.dataset.step);
+          d.classList.toggle('active', ds === s);
+          d.classList.toggle('done', ds < s);
+        });
+        document.querySelectorAll('.step-line').forEach((l, i) => {
+          l.classList.toggle('active', i < s - 1);
+        });
+        btnNext.classList.toggle('d-none', s !== 1);
+        btnBack.classList.toggle('d-none', s !== 2);
+        btnConfirm.classList.toggle('d-none', s !== 2);
+        btnDone.classList.toggle('d-none', s !== 4);
+        document.getElementById('transfer-footer').classList.toggle('d-none', s === 3);
+      }
+
+      btnNext.addEventListener('click', function() {
+        const recipient = document.getElementById('input-recipient').value.trim();
+        const amount = document.getElementById('input-amount').value;
+        if (!recipient || !amount || parseFloat(amount) <= 0) {
+          showError('Please fill in recipient and a valid amount');
+          return;
+        }
+        document.getElementById('confirm-recipient').textContent = recipient;
+        document.getElementById('confirm-amount').textContent = formatCurrency(parseFloat(amount));
+        document.getElementById('confirm-memo').textContent = document.getElementById('input-memo').value || '—';
+        showStep(2);
+      });
+
+      btnBack.addEventListener('click', () => showStep(1));
+
+      btnConfirm.addEventListener('click', async function() {
+        showStep(3);
+        document.getElementById('transfer-footer').classList.add('d-none');
+        try {
+          const data = await apiFetch('/api/transfer', {
+            method: 'POST',
+            body: JSON.stringify({
+              fromAccountId: session.account.id,
+              recipientAccount: document.getElementById('input-recipient').value.trim(),
+              amount: parseFloat(document.getElementById('input-amount').value),
+              memo: document.getElementById('input-memo').value,
+              username: session.user.username
+            })
+          });
+          document.getElementById('transfer-result').innerHTML = `
+            <div class="result-icon success"><i class="bi bi-check-lg"></i></div>
+            <h5 style="font-weight:700;margin-bottom:4px;">Transfer Successful</h5>
+            <p style="color:var(--text-muted);font-size:14px;">${data.message}</p>
+            <p style="font-size:13px;color:var(--text-muted);margin-top:12px;">New Balance: <strong>${formatCurrency(data.newBalance)}</strong></p>`;
+          showSuccess('Transfer completed successfully');
+          showStep(4);
+          document.getElementById('transfer-footer').classList.remove('d-none');
+          loadAccount();
+          loadTransactions();
+        } catch (err) {
+          document.getElementById('transfer-result').innerHTML = `
+            <div class="result-icon error"><i class="bi bi-x-lg"></i></div>
+            <h5 style="font-weight:700;margin-bottom:4px;">Transfer Failed</h5>
+            <p style="color:var(--text-muted);font-size:14px;">${err.message || 'An error occurred'}</p>`;
+          showError(err.message || 'Transfer failed');
+          showStep(4);
+          document.getElementById('transfer-footer').classList.remove('d-none');
+        }
+      });
+
+      btnDone.addEventListener('click', function() {
+        bootstrap.Modal.getInstance(modal).hide();
+      });
+
+      modal.addEventListener('hidden.bs.modal', function() {
+        showStep(1);
+        document.getElementById('input-recipient').value = '';
+        document.getElementById('input-amount').value = '';
+        document.getElementById('input-memo').value = '';
+      });
+    }
+  </script>
+</body>
+</html>

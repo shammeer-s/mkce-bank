@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AuraBank Admin — Audit logs and system administration">
+  <title>AuraBank — Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <aside class="app-sidebar" id="app-sidebar"></aside>
+  <div class="app-main">
+    <header class="app-header">
+      <h1 class="page-title"><i class="bi bi-shield-lock me-2"></i>Admin Panel</h1>
+      <div class="header-actions">
+        <button class="btn-outline-custom" id="btn-refresh-audit" data-testid="btn-refresh-audit" onclick="document.getElementById('iframe-audit').src = '/audit-log.html?' + Date.now();">
+          <i class="bi bi-arrow-clockwise"></i> Refresh Logs
+        </button>
+      </div>
+    </header>
+    <div class="app-content fade-in-up" id="admin-panel" data-testid="admin-panel">
+      <div class="admin-iframe-container">
+        <iframe src="/audit-log.html" id="iframe-audit" data-testid="iframe-audit" title="Audit Log"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    const session = requireAdmin();
+    if (session) renderSidebar('admin');
+  </script>
+</body>
+</html>

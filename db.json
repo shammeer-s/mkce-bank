@@ -1,0 +1,307 @@
+{
+  "users": [
+    {
+      "id": "USR001",
+      "username": "john.doe",
+      "password": "Pass@123",
+      "fullName": "John Doe",
+      "email": "john.doe@aurabank.com",
+      "role": "customer",
+      "accountId": "ACC001"
+    },
+    {
+      "id": "USR002",
+      "username": "admin",
+      "password": "Admin@123",
+      "fullName": "Sarah Mitchell",
+      "email": "sarah.mitchell@aurabank.com",
+      "role": "admin",
+      "accountId": "ACC002"
+    },
+    {
+      "id": "USR003",
+      "username": "jane.smith",
+      "password": "Jane@456",
+      "fullName": "Jane Smith",
+      "email": "jane.smith@aurabank.com",
+      "role": "customer",
+      "accountId": "ACC003"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "ACC001",
+      "userId": "USR001",
+      "accountNumber": "4820-1156-7893",
+      "type": "Savings",
+      "balance": 24750.75,
+      "currency": "USD"
+    },
+    {
+      "id": "ACC002",
+      "userId": "USR002",
+      "accountNumber": "4820-2290-4410",
+      "type": "Checking",
+      "balance": 105320,
+      "currency": "USD"
+    },
+    {
+      "id": "ACC003",
+      "userId": "USR003",
+      "accountNumber": "4820-3378-5521",
+      "type": "Savings",
+      "balance": 12480.5,
+      "currency": "USD"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "TXN013",
+      "accountId": "ACC001",
+      "date": "2026-04-27",
+      "description": "Transfer to 123456256542",
+      "type": "Transfer",
+      "amount": 100,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN001",
+      "accountId": "ACC001",
+      "date": "2026-04-27",
+      "description": "Salary Deposit — Acme Corp",
+      "type": "Credit",
+      "amount": 5200,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN002",
+      "accountId": "ACC001",
+      "date": "2026-04-25",
+      "description": "Electric Bill — City Power Co.",
+      "type": "Debit",
+      "amount": 142.3,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN003",
+      "accountId": "ACC001",
+      "date": "2026-04-23",
+      "description": "Transfer to Jane Smith",
+      "type": "Transfer",
+      "amount": 500,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN004",
+      "accountId": "ACC001",
+      "date": "2026-04-22",
+      "description": "Amazon Purchase — Electronics",
+      "type": "Debit",
+      "amount": 89.99,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN005",
+      "accountId": "ACC001",
+      "date": "2026-04-20",
+      "description": "Freelance Payment — Design Work",
+      "type": "Credit",
+      "amount": 1750,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN006",
+      "accountId": "ACC001",
+      "date": "2026-04-18",
+      "description": "Netflix Subscription",
+      "type": "Debit",
+      "amount": 15.99,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN007",
+      "accountId": "ACC001",
+      "date": "2026-04-16",
+      "description": "Transfer from Sarah Mitchell",
+      "type": "Credit",
+      "amount": 320,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN008",
+      "accountId": "ACC001",
+      "date": "2026-04-14",
+      "description": "Grocery Store — Whole Foods",
+      "type": "Debit",
+      "amount": 67.45,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN009",
+      "accountId": "ACC001",
+      "date": "2026-04-12",
+      "description": "Gym Membership — FitLife",
+      "type": "Debit",
+      "amount": 49,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN010",
+      "accountId": "ACC001",
+      "date": "2026-04-10",
+      "description": "Interest Credit — Savings",
+      "type": "Credit",
+      "amount": 12.38,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN011",
+      "accountId": "ACC001",
+      "date": "2026-04-08",
+      "description": "Uber Ride — Airport Trip",
+      "type": "Debit",
+      "amount": 34.5,
+      "status": "Completed"
+    },
+    {
+      "id": "TXN012",
+      "accountId": "ACC001",
+      "date": "2026-04-05",
+      "description": "Transfer to Savings — Auto",
+      "type": "Transfer",
+      "amount": 1000,
+      "status": "Completed"
+    }
+  ],
+  "loans": [],
+  "auditLog": [
+    {
+      "id": "AUD016",
+      "timestamp": "2026-04-27T17:57:39.378Z",
+      "action": "TRANSFER",
+      "user": "john.doe",
+      "details": "Transferred $100 to 123456256542",
+      "severity": "warning"
+    },
+    {
+      "id": "AUD015",
+      "timestamp": "2026-04-27T16:57:52.534Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD014",
+      "timestamp": "2026-04-27T16:56:35.725Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD013",
+      "timestamp": "2026-04-27T16:28:22.430Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD001",
+      "timestamp": "2026-04-27T09:15:00Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from 192.168.1.45",
+      "severity": "info"
+    },
+    {
+      "id": "AUD002",
+      "timestamp": "2026-04-27T09:18:22Z",
+      "action": "VIEW_BALANCE",
+      "user": "john.doe",
+      "details": "Viewed account balance for ACC001",
+      "severity": "info"
+    },
+    {
+      "id": "AUD003",
+      "timestamp": "2026-04-27T08:30:00Z",
+      "action": "TRANSFER",
+      "user": "john.doe",
+      "details": "Transferred $500.00 to ACC003 (Jane Smith)",
+      "severity": "warning"
+    },
+    {
+      "id": "AUD004",
+      "timestamp": "2026-04-26T14:45:10Z",
+      "action": "LOGIN_FAILED",
+      "user": "unknown",
+      "details": "Failed login attempt from 10.0.0.12 — invalid credentials",
+      "severity": "error"
+    },
+    {
+      "id": "AUD005",
+      "timestamp": "2026-04-26T11:00:00Z",
+      "action": "LOAN_APPLICATION",
+      "user": "jane.smith",
+      "details": "Submitted loan application for $25,000",
+      "severity": "info"
+    },
+    {
+      "id": "AUD006",
+      "timestamp": "2026-04-25T16:20:00Z",
+      "action": "PASSWORD_CHANGE",
+      "user": "admin",
+      "details": "Password changed successfully",
+      "severity": "warning"
+    },
+    {
+      "id": "AUD007",
+      "timestamp": "2026-04-25T10:05:33Z",
+      "action": "TRANSFER",
+      "user": "admin",
+      "details": "Transferred $320.00 to ACC001 (John Doe)",
+      "severity": "warning"
+    },
+    {
+      "id": "AUD008",
+      "timestamp": "2026-04-24T09:00:00Z",
+      "action": "LOGIN",
+      "user": "admin",
+      "details": "Successful login from 192.168.1.1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD009",
+      "timestamp": "2026-04-23T13:30:00Z",
+      "action": "ACCOUNT_LOCKED",
+      "user": "system",
+      "details": "Account USR004 locked after 5 failed attempts",
+      "severity": "error"
+    },
+    {
+      "id": "AUD010",
+      "timestamp": "2026-04-22T17:45:00Z",
+      "action": "SYSTEM_BACKUP",
+      "user": "system",
+      "details": "Automated daily backup completed — 2.4GB",
+      "severity": "info"
+    },
+    {
+      "id": "AUD011",
+      "timestamp": "2026-04-21T08:15:00Z",
+      "action": "LOGIN",
+      "user": "jane.smith",
+      "details": "Successful login from 172.16.0.88",
+      "severity": "info"
+    },
+    {
+      "id": "AUD012",
+      "timestamp": "2026-04-20T12:00:00Z",
+      "action": "RATE_UPDATE",
+      "user": "system",
+      "details": "Interest rate updated from 4.2% to 4.5% for savings accounts",
+      "severity": "warning"
+    }
+  ]
+}
