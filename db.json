@@ -176,6 +176,198 @@
   "loans": [],
   "auditLog": [
     {
+      "id": "AUD040",
+      "timestamp": "2026-04-28T07:45:14.525Z",
+      "action": "LOGIN_FAILED",
+      "user": "invalidUser",
+      "details": "Failed login attempt from ::1",
+      "severity": "error"
+    },
+    {
+      "id": "AUD039",
+      "timestamp": "2026-04-28T07:45:08.904Z",
+      "action": "LOGIN_FAILED",
+      "user": "invalidUser",
+      "details": "Failed login attempt from ::1",
+      "severity": "error"
+    },
+    {
+      "id": "AUD038",
+      "timestamp": "2026-04-28T07:45:08.291Z",
+      "action": "LOGIN",
+      "user": "admin",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD037",
+      "timestamp": "2026-04-28T07:45:02.731Z",
+      "action": "LOGIN",
+      "user": "admin",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD036",
+      "timestamp": "2026-04-28T07:45:01.792Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD035",
+      "timestamp": "2026-04-28T07:44:56.275Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD034",
+      "timestamp": "2026-04-28T07:44:55.240Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD033",
+      "timestamp": "2026-04-28T07:44:49.983Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD032",
+      "timestamp": "2026-04-28T07:44:49.444Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD031",
+      "timestamp": "2026-04-28T07:44:42.966Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD030",
+      "timestamp": "2026-04-28T07:44:41.092Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD029",
+      "timestamp": "2026-04-28T07:44:36.503Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD028",
+      "timestamp": "2026-04-28T07:44:34.722Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD027",
+      "timestamp": "2026-04-28T07:44:29.878Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD026",
+      "timestamp": "2026-04-28T07:44:28.754Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD025",
+      "timestamp": "2026-04-28T07:44:24.037Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD024",
+      "timestamp": "2026-04-28T07:43:35.630Z",
+      "action": "LOGIN_FAILED",
+      "user": "invalidUser",
+      "details": "Failed login attempt from ::1",
+      "severity": "error"
+    },
+    {
+      "id": "AUD023",
+      "timestamp": "2026-04-28T07:43:29.486Z",
+      "action": "LOGIN",
+      "user": "admin",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD022",
+      "timestamp": "2026-04-28T07:43:22.621Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD021",
+      "timestamp": "2026-04-28T07:41:38.995Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD020",
+      "timestamp": "2026-04-28T07:41:32.777Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD019",
+      "timestamp": "2026-04-28T07:41:25.375Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD018",
+      "timestamp": "2026-04-28T07:41:14.475Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
+      "id": "AUD017",
+      "timestamp": "2026-04-28T07:41:08.799Z",
+      "action": "LOGIN",
+      "user": "john.doe",
+      "details": "Successful login from ::1",
+      "severity": "info"
+    },
+    {
       "id": "AUD016",
       "timestamp": "2026-04-27T17:57:39.378Z",
       "action": "TRANSFER",

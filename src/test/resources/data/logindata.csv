@@ -1,0 +1,7 @@
+username,password,expectedCondition
+john.doe,Pass@123,success
+admin,Admin@123,success
+invalidUser,WrongPass,failure
+,Pass@123,validationError
+john.doe,,validationError
+,,validationError

@@ -3,7 +3,8 @@
 <suite name="Bank Test" verbose="1">
     <test name="Testing">
         <classes>
-            <class name="FirstScript"/>
+            <class name="com.aura.ui.DashboardTest"/>
+            <class name="com.aura.ui.LoginTest"/>
         </classes>
     </test>
 </suite>
