@@ -11,7 +11,7 @@ public class LoginPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private By usernameInput = By.id("input-usernamee");
+    private By usernameInput = By.id("input-username");
     private By passwordInput = By.id("input-password");
     private By loginBtn = By.id("btn-login");
     private By testModeToggle = By.id("toggle-test-mode");
