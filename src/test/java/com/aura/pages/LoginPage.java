@@ -13,7 +13,7 @@ public class LoginPage {
 
     private By usernameInput = By.id("input-username");
     private By passwordInput = By.id("input-password");
-    private By loginBtn = By.id("btn-login");
+    private By loginBtn = By.id("");
     private By testModeToggle = By.id("toggle-test-mode");
     private By togglePasswordBtn = By.id("btn-toggle-password");
     private By loginError = By.id("login-error");
