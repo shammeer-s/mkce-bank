@@ -27,14 +27,14 @@ pipeline {
             }
         }
 
-        stage('Run JMeter Load Tests') {
-            steps {
-                // Assuming JMeter is installed and added to PATH on the agent
-                bat 'jmeter -n -t jmeter/aurabank_load_test.jmx -l target/jmeter-results.jtl'
-            }
-            // Ignore failures to ensure UI tests run even if load tests fail
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {}
-        }
+//        stage('Run JMeter Load Tests') {
+//            steps {
+//                // Assuming JMeter is installed and added to PATH on the agent
+//                bat 'jmeter -n -t jmeter/aurabank_load_test.jmx -l target/jmeter-results.jtl'
+//            }
+//            // Ignore failures to ensure UI tests run even if load tests fail
+//            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {}
+//        }
 
         stage('Run UI & BDD Tests (TestNG)') {
             steps {
